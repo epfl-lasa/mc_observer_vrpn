@@ -1,5 +1,4 @@
 
-// #include <SpaceVecAlg/Conversions.h> // ?
 
 #include <mc_observers/ObserverMacros.h>
 #include <VrpnSensorObserverROS.h>
@@ -46,14 +45,12 @@ bool VrpnSensorObserverROS::run(const mc_control::MCController & ctl)
 
 void VrpnSensorObserverROS::rosSpinner()
 {
-  mc_rtc::log::info("[{}] rosSpinner started", name());
-  mc_state_observation::RosRate rate(200);
-  while(mc_state_observation::ros_ok())
+  ros::Rate rate(200);
+  while(ros::ok())
   {
-    mc_state_observation::spinOnce(nh_);
+    ros::spinOnce();
     rate.sleep();
   }
-  mc_rtc::log::info("[{}] rosSpinner finished", name());
 }
 
 

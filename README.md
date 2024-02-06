@@ -3,15 +3,14 @@ Simple custom VRPN observer (ROS)
 
 Please refer to the [state observation tutorial](https://jrl-umi3218.github.io/mc_rtc/tutorials/recipes/observers.html) for futher details.
 
-This simple observer listen to the specified ROS topic and update the base pose of the specified robot in mc_rtc.
+This simple observer listen to the specified ROS topic and **update the base pose of the specified robot** in mc_rtc.
 
 Dependencies
 ------------
 
 This package requires:
 - [mc_rtc]
-- [mc_state_observation] (--recurse-submodules when git clone)
-  - [gram_savitzky_golay] (--recurse-submodules when git clone)
+- ROS (tested on noetic)
 
   
 And the following ros packages: 
@@ -43,7 +42,12 @@ ObserverPipelines:
         rostopic: /ros_topic_name
 ```
 
+Launch the vrpn client:
+
+```bash
+roslaunch vrpn_client_ros sample.launch server:=IP_ADDRESS
+```
+
+( 128.178.145.104 )
 
 [mc_rtc]: https://jrl-umi3218.github.io/mc_rtc/
-[mc_state_observation]: https://github.com/arntanguy/gram_savitzky_golay.git
-[gram_savitzky_golay]: https://github.com/arntanguy/gram_savitzky_golay.git

@@ -2,8 +2,9 @@
 
 #include <VrpnSensorObserver.h>
 
-#include <mc_state_observation/ros.h>
-#include <geometry_msgs/WrenchStamped.h>
+#include <mc_rtc_ros/ros.h>
+#include <ros/ros.h>
+#include <geometry_msgs/PoseStamped.h>
 #include <thread>
 
 namespace vrpn_sensor_obs
