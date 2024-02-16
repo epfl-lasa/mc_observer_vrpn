@@ -4,7 +4,7 @@
 
 #include <mc_rtc_ros/ros.h>
 #include <ros/ros.h>
-#include <geometry_msgs/PoseStamped.h>
+#include <geometry_msgs/Pose.h>
 #include <thread>
 
 namespace vrpn_sensor_obs
@@ -20,7 +20,7 @@ struct VrpnSensorObserverROS : public VrpnSensorObserver
 
   bool run(const mc_control::MCController & ctl) override;
 
-  void callbackVrpn(geometry_msgs::PoseStamped msg);
+  void callbackVrpn(geometry_msgs::Pose msg);
 
 protected:
   std::string rosTopic_ = "/ft_sensor_ns/netft_data";

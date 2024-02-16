@@ -18,7 +18,7 @@ void VrpnSensorObserverROS::configure(const mc_control::MCController & ctl, cons
   desc_ =
       fmt::format("rostopic: {} ", rosTopic_);
 
-  rosSubscriber_ = nh_->subscribe<geometry_msgs::PoseStamped>(rosTopic_, 10, &VrpnSensorObserverROS::callbackVrpn, this);
+  rosSubscriber_ = nh_->subscribe<geometry_msgs::Pose>(rosTopic_, 10, &VrpnSensorObserverROS::callbackVrpn, this);
   thread_ = std::thread(std::bind(&VrpnSensorObserverROS::rosSpinner, this));
 
 }
@@ -28,14 +28,14 @@ void VrpnSensorObserverROS::reset(const mc_control::MCController & ctl)
   VrpnSensorObserver::reset(ctl);
 }
 
-void VrpnSensorObserverROS::callbackVrpn(geometry_msgs::PoseStamped msg)
+void VrpnSensorObserverROS::callbackVrpn(geometry_msgs::Pose msg)
 {
 
 
-  position_ = (Eigen::Vector3d() << msg.pose.position.x, msg.pose.position.y, msg.pose.position.z ).finished();
-  orientation_ = (Eigen::Vector4d() << msg.pose.orientation.w, msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z ).finished();
+  position_ = (Eigen::Vector3d() << msg.position.x, msg.position.y, msg.position.z ).finished();
+  orientation_ = (Eigen::Vector4d() << msg.orientation.w, msg.orientation.x, msg.orientation.y, msg.orientation.z ).finished();
 
-  VrpnSensorObserver::poseUpdate(position_, orientation_);
+  VrpnSensorObserver::poseUpdate(position_, orientation_);  
 }
 
 bool VrpnSensorObserverROS::run(const mc_control::MCController & ctl)
@@ -45,7 +45,7 @@ bool VrpnSensorObserverROS::run(const mc_control::MCController & ctl)
 
 void VrpnSensorObserverROS::rosSpinner()
 {
-  ros::Rate rate(200);
+  ros::Rate rate(1000);
   while(ros::ok())
   {
     ros::spinOnce();
